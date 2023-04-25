@@ -12,11 +12,16 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Checkbox from "@mui/material/Checkbox";
 import { pink } from '@mui/material/colors';
 import { Box } from "@mui/material";
+import {useAuthState} from 'react-firebase-hooks/auth';
+import { auth } from "@/utils/firebase";
+import { useRouter } from "next/router";
 
 
 export default function Home() {
   //create a state with all posts
   const [allPosts, setAllPosts] = useState([]);
+  const [user, loading] = useAuthState(auth);
+  const route = useRouter();
 
   const getBackground = () => {
     let randomNum = Math.floor(Math.random()*4);
@@ -39,9 +44,14 @@ export default function Home() {
     });
     return unsubscribe;
   }
+
   useEffect(() => {
-    getPosts();
-  }, []);
+    if(!user) {
+      route.push("/auth/login");
+    } else {
+      getPosts();
+    }
+  }, [user, loading]);
 
   return(
     <div>
