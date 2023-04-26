@@ -56,12 +56,13 @@ export default function Home() {
   return(
     <div>
       <div className="my-12 text-lg">
-        <h2>See what other people are posting!</h2>
+        <h2 className="text-xl font-medium">See what other people are posting!</h2>
+        <br></br>
         {allPosts.map(post => 
         <div>
         <Box className={getBackground()}>
         <Message className="text-md" {...post} key={post.id}>
-            {/* LIKES */}
+            {/* LIKES
             <FormControlLabel
               control = {
                 <Checkbox icon={<FavoriteBorderIcon />} checkedIcon={<FavoriteIcon />} 
@@ -71,7 +72,7 @@ export default function Home() {
                     color: pink[600],
                   },
                 }}/>
-              }/>
+              }/> */}
             {/* COMMENTS */}
             <Link className="text-sm text-gray-500" href={{pathname: `/${post.id}`, query: {...post} }}>
               <button>{post.comments?.length>0 ? post.comments?.length :  "0"} comments.</button>
